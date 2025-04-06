@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package paymentservice;
+
+option go_package = "proto/;paymentservice";
+
+// PaymentService definition
+service PaymentService {
+    rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+    rpc CancelPayment (CancelPaymentRequest) returns (CancelPaymentResponse);
+    rpc RefundPayment (RefundPaymentRequest) returns (RefundPaymentResponse);
+    rpc SuccessPayment (SuccessPaymentRequest) returns (SuccessPaymentResponse);
+    rpc GetPaymentStatus (GetPaymentStatusResponse) returns (GetPaymentStatusResponse);
+}
+
+message CreatePaymentRequest {
+    string order_id = 1; // Unique ID for the order
+    double price = 2; // Amount to be paid
+}
+
+message CreatePaymentResponse {
+    string order_id = 1; // Unique ID for the payment
+    string status = 2; // Status of the payment (e.g., PENDING, COMPLETED)
+}
+
+message GetPaymentStatusResponse {
+    string order_id = 1; // Unique ID for the payment
+    double price = 2; // Amount to be paid
+    string status = 3; // Status of the payment (e.g., PENDING, COMPLETED, FAILED)
+}
+message CancelPaymentRequest {
+    string order_id = 1; // Unique ID for the payment
+}
+message CancelPaymentResponse {
+    string order_id = 1; // Unique ID for the payment
+    double price = 2; // Amount to be paid
+    string status = 3; // Status of the payment (e.g., CANCELLED, FAILED)
+}
+message RefundPaymentRequest {
+    string order_id = 1; // Unique ID for the payment
+}
+message RefundPaymentResponse {
+    string order_id = 1; // Unique ID for the payment
+    double price = 2; // Amount to be paid
+    string status = 3; // Status of the refund (e.g., PENDING, COMPLETED, FAILED)
+}
+
+message SuccessPaymentRequest {
+    string order_id = 1; // Unique ID for the payment
+}
+
+message SuccessPaymentResponse {
+    string order_id = 1; // Unique ID for the payment
+    double price = 2; // Amount to be paid
+    string status = 3; // Status of the payment (e.g., PENDING, COMPLETED, FAILED)
+}

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package orderservice;
+
+option go_package = "proto/;orderservice";
+
+// OrderService definition
+service OrderService {
+    // Create an order and initiate a saga
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+
+    // Get the status of an order
+    rpc GetOrderStatus (GetOrderStatusRequest) returns (GetOrderStatusResponse);
+
+    // Cancel an order
+    rpc CancelOrder (CancelOrderRequest) returns (CancelOrderResponse);
+    // Complete an order
+    rpc CompleteOrder (CompleteOrderRequest) returns (CompleteOrderResponse);
+}
+
+// Request message for creating an order
+message CreateOrderRequest {
+    string order_id = 1; // Unique ID for the order
+    double price = 2; // Amount to be paid
+}
+
+// Response message for creating an order
+message CreateOrderResponse {
+    string order_id = 1; // Unique ID for the order
+    string status = 2; // Status of the order (e.g., PENDING)
+    double price = 3; // Amount to be paid
+}
+
+// Request message for getting the status of an order
+message GetOrderStatusRequest {
+    string order_id = 1; // Unique ID for the order
+}
+
+// Response message for getting the status of an order
+message GetOrderStatusResponse {
+    string order_id = 1; // Unique ID for the order
+    string status = 2; // Status of the order (e.g., PENDING, COMPLETED, CANCELLED)
+    double price = 3; // Amount to be paid
+}
+
+message CancelOrderRequest {
+    string order_id = 1; // Unique ID for the order
+}
+
+message CancelOrderResponse {
+    string order_id = 1; // Unique ID for the order
+    string status = 2; // Status of the order (e.g., CANCELLED)
+}
+
+message CompleteOrderRequest {
+    string order_id = 1; // Unique ID for the order
+}
+
+message CompleteOrderResponse {
+    string order_id = 1; // Unique ID for the order
+    string status = 2; // Status of the order (e.g., COMPLETED)
+}

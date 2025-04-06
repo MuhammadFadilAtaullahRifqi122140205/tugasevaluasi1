@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package shippingservice;
+
+option go_package = "proto/;shippingservice;";
+
+service ShippingService {
+    rpc StartShipping (StartShippingRequest) returns (StartShippingResponse);
+    rpc CancelShipping (CancelShippingRequest) returns (CancelShippingResponse);
+    rpc Shipped (ShippedRequest) returns (ShippedResponse);
+}
+
+message StartShippingRequest {
+  string order_id = 1;
+  string address = 2;
+}
+
+message StartShippingResponse {
+  string order_id = 1;
+  string address = 2;
+  string status = 3;
+}
+
+message CancelShippingRequest {
+  string order_id = 1;
+}
+
+message CancelShippingResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message  ShippedRequest {
+  string order_id = 1;
+}
+
+message ShippedResponse {
+  string order_id = 1;
+  string status = 2;
+}
